@@ -1,4 +1,4 @@
-'name: Deploy calculator to GitHub Pages'
+name: Deploy calculator to GitHub Pages
 
 'on':
   push:
@@ -26,7 +26,7 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload website files
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: .
       - name: Deploy website
