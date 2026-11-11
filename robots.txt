@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://newrepo.sonjeff95.workers.dev/sitemap.xml
