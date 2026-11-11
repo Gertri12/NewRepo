@@ -1,188 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111827">
-  <title>Simple Calculator</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      min-height: 100vh; margin: 0; display: grid; place-items: center;
-      padding: 24px; font-family: system-ui, -apple-system, Segoe UI, sans-serif;
-      color: #f8fafc; background: radial-gradient(circle at top, #263449, #0b1020 65%);
-    }
-    .calculator {
-      width: min(100%, 360px); padding: 22px; border-radius: 24px;
-      background: #151d2e; border: 1px solid #344258;
-      box-shadow: 0 24px 70px #0008;
-    }
-    h1 { margin: 0 0 16px; font-size: 1rem; font-weight: 600; color: #aebbd0; }
-    .display {
-      min-height: 112px; padding: 18px 14px; margin-bottom: 16px;
-      display: flex; flex-direction: column; justify-content: end; align-items: end;
-      overflow: hidden; border-radius: 16px; background: #0b1220;
-    }
-    #previous { min-height: 24px; color: #93a4bd; font-size: .95rem; }
-    #current { width: 100%; overflow: hidden; text-overflow: ellipsis; text-align: right; font-size: 2.5rem; font-weight: 600; }
-    .keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    button {
-      min-height: 62px; border: 0; border-radius: 14px; cursor: pointer;
-      color: #f8fafc; background: #26344a; font-size: 1.2rem; font-weight: 600;
-      transition: transform .08s ease, filter .15s ease;
-    }
-    button:hover { filter: brightness(1.18); }
-    button:active { transform: scale(.96); }
-    button:focus-visible { outline: 3px solid #7dd3fc; outline-offset: 2px; }
-    .utility { background: #3a4960; color: #dce7f5; }
-    .operator { background: #245b91; }
-    .equals { background: #0e9f83; }
-    .zero { grid-column: span 2; }
-    footer { margin-top: 15px; text-align: center; color: #8191a9; font-size: .75rem; }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="A fast, free calculator with calculation history, keyboard shortcuts, and light and dark themes.">
+<title>QuickCalc | Free Online Calculator</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#151e32;--surface:#0f1729;--key:#25324b;--muted:#a9b9d1;--text:#f5f8ff;--accent:#78d9c1;--op:#284b72;--border:#34435b;--shadow:#0006}
+:root.light{color-scheme:light;--bg:#edf3fb;--panel:#fff;--surface:#f2f6fd;--key:#e5edf8;--muted:#56657c;--text:#16243a;--accent:#087e6d;--op:#d9e9fc;--border:#d2dfef;--shadow:#213e6520}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#26426655,transparent 55%),var(--bg);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,sans-serif;padding:24px 14px}
+.shell{max-width:850px;margin:0 auto}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 auto 28px}.brand{font-size:1.3rem;font-weight:800;letter-spacing:-.04em}.brand span{color:var(--accent)}.tag{font-size:.72rem;color:var(--muted);font-weight:500;letter-spacing:0}.pill,.small{border:1px solid var(--border);background:var(--panel);color:var(--text);border-radius:999px;padding:10px 14px;cursor:pointer;font:inherit}.layout{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:22px;align-items:start}.calculator,.history{background:var(--panel);border:1px solid var(--border);border-radius:28px;padding:22px;box-shadow:0 22px 65px var(--shadow)}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;color:var(--muted);font-weight:800}.display{background:var(--surface);border:1px solid var(--border);border-radius:20px;margin:16px 0;padding:22px 17px;min-height:130px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;gap:12px}.expression{color:var(--muted);min-height:21px;font-size:.92rem;overflow-wrap:anywhere;text-align:right}.value{font-size:clamp(2rem,7vw,3.2rem);font-weight:750;letter-spacing:-.055em;line-height:1.1;max-width:100%;overflow-wrap:anywhere;text-align:right;font-variant-numeric:tabular-nums}.keys{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.keys button{border:0;border-radius:16px;min-height:65px;font:650 1.28rem system-ui;color:var(--text);background:var(--key);cursor:pointer;transition:transform .1s,filter .15s;touch-action:manipulation}.keys button:hover,.pill:hover,.small:hover{filter:brightness(1.12)}.keys button:active{transform:scale(.95)}button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.keys .utility{color:var(--accent)}.keys .operator{background:var(--op)}.keys .equals{background:var(--accent);color:var(--bg)}.keys .zero{grid-column:span 2}.hint{color:var(--muted);font-size:.8rem;text-align:center;margin:16px 0 0}.history-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.history h2{font-size:1.1rem;margin:0}.small{font-size:.8rem;padding:7px 12px}.history-list{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:9px;max-height:410px;overflow:auto}.history-list button{display:block;text-align:right;width:100%;padding:13px;border-radius:13px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font:inherit}.history-list .expr{display:block;color:var(--muted);font-size:.84rem;margin-bottom:5px}.empty{color:var(--muted);font-size:.9rem;line-height:1.6;margin:20px 0 0}.copy{font-size:.78rem;color:var(--muted);background:none;border:0;cursor:pointer;padding:7px 0}.foot{color:var(--muted);font-size:.78rem;text-align:center;margin:25px 0}@media(max-width:680px){.layout{grid-template-columns:1fr;max-width:440px;margin:auto}.calculator,.history{padding:18px}.top{max-width:440px;margin-bottom:20px}.keys button{min-height:61px}.history-list{max-height:240px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-  <main class="calculator" aria-label="Calculator">
-    <h1>CALCULATOR</h1>
-    <section class="display" aria-live="polite" aria-atomic="true">
-      <div id="previous"></div>
-      <div id="current">0</div>
-    </section>
-    <section class="keys" aria-label="Calculator keys">
-      <button class="utility" data-action="clear">AC</button>
-      <button class="utility" data-action="delete" aria-label="Delete last digit">DEL</button>
-      <button class="utility" data-action="percent">%</button>
-      <button class="operator" data-operator="÷">÷</button>
-
-      <button data-number="7">7</button>
-      <button data-number="8">8</button>
-      <button data-number="9">9</button>
-      <button class="operator" data-operator="×">×</button>
-
-      <button data-number="4">4</button>
-      <button data-number="5">5</button>
-      <button data-number="6">6</button>
-      <button class="operator" data-operator="−">−</button>
-
-      <button data-number="1">1</button>
-      <button data-number="2">2</button>
-      <button data-number="3">3</button>
-      <button class="operator" data-operator="+">+</button>
-
-      <button class="utility" data-action="sign">+/−</button>
-      <button class="zero" data-number="0">0</button>
-      <button data-action="decimal">.</button>
-      <button class="equals" data-action="equals">=</button>
-    </section>
-    <footer>Keyboard supported · Clear with Esc</footer>
-  </main>
-
-  <script>
-    const currentEl = document.getElementById('current');
-    const previousEl = document.getElementById('previous');
-    let current = '0';
-    let previous = null;
-    let operator = null;
-    let shouldReset = false;
-
-    function updateDisplay() {
-      currentEl.textContent = current;
-      previousEl.textContent = previous === null ? '' : `${previous} ${operator || ''}`;
-    }
-
-    function inputNumber(number) {
-      if (current === 'Error' || shouldReset) {
-        current = number;
-        shouldReset = false;
-      } else if (current === '0') {
-        current = number;
-      } else if (current.replace('-', '').length < 14) {
-        current += number;
-      }
-      updateDisplay();
-    }
-
-    function inputDecimal() {
-      if (current === 'Error' || shouldReset) {
-        current = '0.';
-        shouldReset = false;
-      } else if (!current.includes('.')) {
-        current += '.';
-      }
-      updateDisplay();
-    }
-
-    function chooseOperator(nextOperator) {
-      if (current === 'Error') return;
-      if (operator && !shouldReset) calculate();
-      previous = Number(current);
-      operator = nextOperator;
-      shouldReset = true;
-      updateDisplay();
-    }
-
-    function calculate() {
-      if (operator === null || previous === null || current === 'Error') return;
-      const a = previous;
-      const b = Number(current);
-      let result;
-      switch (operator) {
-        case '+': result = a + b; break;
-        case '−': result = a - b; break;
-        case '×': result = a * b; break;
-        case '÷': result = b === 0 ? NaN : a / b; break;
-      }
-      current = Number.isFinite(result)
-        ? String(Number(result.toPrecision(12)))
-        : 'Error';
-      previous = null;
-      operator = null;
-      shouldReset = true;
-      updateDisplay();
-    }
-
-    function handleAction(action) {
-      switch (action) {
-        case 'clear':
-          current = '0'; previous = null; operator = null; shouldReset = false;
-          break;
-        case 'delete':
-          if (current === 'Error' || shouldReset) current = '0';
-          else current = current.length > 1 ? current.slice(0, -1) : '0';
-          break;
-        case 'sign':
-          if (current !== '0' && current !== 'Error') current = String(Number(current) * -1);
-          break;
-        case 'percent':
-          if (current !== 'Error') current = String(Number(current) / 100);
-          break;
-        case 'equals': calculate(); return;
-      }
-      updateDisplay();
-    }
-
-    document.querySelector('.keys').addEventListener('click', (event) => {
-      const button = event.target.closest('button');
-      if (!button) return;
-      if (button.dataset.number !== undefined) inputNumber(button.dataset.number);
-      else if (button.dataset.operator) chooseOperator(button.dataset.operator);
-      else if (button.dataset.action) handleAction(button.dataset.action);
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (/^[0-9]$/.test(event.key)) inputNumber(event.key);
-      else if (event.key === '.') inputDecimal();
-      else if (event.key === '+') chooseOperator('+');
-      else if (event.key === '-') chooseOperator('−');
-      else if (event.key === '*') chooseOperator('×');
-      else if (event.key === '/') { event.preventDefault(); chooseOperator('÷'); }
-      else if (event.key === 'Enter' || event.key === '=') { event.preventDefault(); calculate(); }
-      else if (event.key === 'Backspace') handleAction('delete');
-      else if (event.key === 'Escape') handleAction('clear');
-      else if (event.key === '%') handleAction('percent');
-    });
-
-    updateDisplay();
-  </script>
-</body>
-</html>
+<div class="shell">
+<header class="top"><div class="brand">Quick<span>Calc</span><div class="tag">Simple maths, beautifully done.</div></div><button id="theme" class="pill" type="button" aria-label="Toggle light or dark theme">☀️ Light mode</button></header>
+<main class="layout">
+<section class="calculator" aria-label="Calculator"><div class="eyebrow">Your calculator</div><div class="display" aria-live="polite" aria-atomic="true"><div id="previous" class="expression"></div><div id="current" class="value">0</div></div>
+<div class="keys" aria-label="Calculator buttons">
+<button class="utility" data-action="clear">AC</button><button class="utility" data-action="delete" aria-label="Delete last digit">⌫</button><button class="utility" data-action="percent">%</button><button class="operator" data-operator="÷">÷</button>
+<button data-number="7">7</button><button data-number="8">8</button><button data-number="9">9</button><button class="operator" data-operator="×">×</button>
+<button data-number="4">4</button><button data-number="5">5</button><button data-number="6">6</button><button class="operator" data-operator="−">−</button>
+<button data-number="1">1</button><button data-number="2">2</button><button data-number="3">3</button><button class="operator" data-operator="+">+</button>
+<button class="utility" data-action="sign">+/−</button><button class="zero" data-number="0">0</button><button data-action="decimal">.</button><button class="equals" data-action="equals">=</button>
+</div><p class="hint">Keyboard friendly · Esc clears · Enter calculates</p><button id="copy" class="copy" type="button">⧉ Copy result</button></section>
+<aside class="history" aria-label="Calculation history"><div class="history-head"><h2>Recent calculations</h2><button id="clearHistory" class="small" type="button">Clear history</button></div><p id="empty" class="empty">Your calculations will appear here. Tap a result to use it again.</p><ul id="history" class="history-list"></ul></aside>
+</main><footer class="foot">Free to use · No sign-up needed · Calculations stay in your browser</footer>
+</div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),currentEl=$('current'),previousEl=$('previous');
+let current='0',previous=null,operator=null,reset=false;
+const format=n=>Number.isFinite(n)?String(Number(n.toPrecision(12))):'Error';
+function render(){currentEl.textContent=current;previousEl.textContent=previous===null?'':format(previous)+' '+(operator||'');}
+function digit(n){if(current==='Error'||reset){current=n;reset=false;}else if(current==='0')current=n;else if(current==='-0')current='-'+n;else if(current.replace(/[^0-9]/g,'').length<15)current+=n;render();}
+function decimal(){if(current==='Error'||reset){current='0.';reset=false;}else if(!current.includes('.'))current+='.';render();}
+function compute(){if(operator===null||previous===null||current==='Error')return;const a=previous,b=Number(current),op=operator;let result;switch(op){case '+':result=a+b;break;case '−':result=a-b;break;case '×':result=a*b;break;case '÷':result=b===0?NaN:a/b;break;}const answer=format(result);if(answer!=='Error')addHistory(format(a)+' '+op+' '+format(b),answer);current=answer;previous=null;operator=null;reset=true;render();}
+function choose(op){if(current==='Error')return;if(operator&& !reset)compute();if(current==='Error')return;previous=Number(current);operator=op;reset=true;render();}
+function action(a){switch(a){case 'clear':current='0';previous=null;operator=null;reset=false;break;case 'delete':if(current==='Error'||reset){current='0';reset=false;}else current=current.length<=1||current.length===2&&current[0]==='-'?'0':current.slice(0,-1);break;case 'sign':if(current!=='Error'&&Number(current)!==0)current=current.startsWith('-')?current.slice(1):'-'+current;break;case 'percent':if(current!=='Error')current=format(Number(current)/100);break;case 'decimal':decimal();return;case 'equals':compute();return;}render();}
+const history=[];function addHistory(expr,result){history.unshift({expr,result});if(history.length>10)history.pop();drawHistory();}
+function drawHistory(){const list=$('history');list.replaceChildren();$('empty').hidden=history.length>0;for(const entry of history){const li=document.createElement('li'),btn=document.createElement('button'),exp=document.createElement('span'),val=document.createElement('strong');exp.className='expr';exp.textContent=entry.expr+' =';val.textContent=entry.result;btn.append(exp,val);btn.addEventListener('click',()=>{current=entry.result;previous=null;operator=null;reset=true;render();});li.append(btn);list.append(li);}}
+document.querySelector('.keys').addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;if(btn.dataset.number!==undefined)digit(btn.dataset.number);else if(btn.dataset.operator)choose(btn.dataset.operator);else if(btn.dataset.action)action(btn.dataset.action);});
+document.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;if(/^[0-9]$/.test(e.key))digit(e.key);else if(e.key==='.')decimal();else if(e.key==='+')choose('+');else if(e.key==='-')choose('−');else if(e.key==='*')choose('×');else if(e.key==='/'){e.preventDefault();choose('÷');}else if(e.key==='Enter'||e.key==='='){e.preventDefault();compute();}else if(e.key==='Backspace')action('delete');else if(e.key==='Escape')action('clear');else if(e.key==='%')action('percent');});
+$('clearHistory').addEventListener('click',()=>{history.length=0;drawHistory();});
+$('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(current);$('copy').textContent='✓ Copied';setTimeout(()=>$('copy').textContent='⧉ Copy result',1300);}catch{$('copy').textContent='Copy unavailable';}});
+const theme=$('theme');function setTheme(light){document.documentElement.classList.toggle('light',light);theme.textContent=light?'🌙 Dark mode':'☀️ Light mode';document.querySelector('meta[name="theme-color"]').content=light?'#edf3fb':'#0b1020';}
+theme.addEventListener('click',()=>setTheme(!document.documentElement.classList.contains('light')));setTheme(false);render();
+})();
+</script></body></html>
